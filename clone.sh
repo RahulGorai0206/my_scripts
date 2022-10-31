@@ -3,6 +3,7 @@
 # Gh auth
 gh auth login
 
+# Select type
 read -p "Enter Build Type (1=A13, 2=A12.1, 3=Test, 4=Private): " type
 case $type in
                 1 )
@@ -28,11 +29,13 @@ case $type in
                         echo "Invalid Input " 
                         exit ;;
 
+# Clone Device Tree
 function clone_dt () {
         dt=$PWD/device/xiaomi/beryllium
         git clone https://github.com/RahulGorai0206/device_xiaomi_beryllium.git -b $branch $dt
 }
 
+# Clone Common Tree
 function clone_ct () {
         ct=$PWD/device/xiaomi/sdm845-common
         if [[ $del_branch == 1 ]]
@@ -43,12 +46,14 @@ function clone_ct () {
         fi
 }
 
+#Clone Vendor Tree
 function clone_vendor () {
         vt=$PWD/vendor/xiaomi
         git clone https://github.com/RahulGorai0206/vendor_xiaomi.git -b $branch $vt
         echo ""
 }
 
+# Clone Kernel Tree
 function clone_kernel () {
      read -p "Enter kernel name (1=Silvercore, 2=Kawaii : " KERNEL
         case $KERNEL in
@@ -67,6 +72,7 @@ function clone_kernel () {
         esac
 }
 
+# Clone Hardware/xiaomi
 function hx_clone () {
         HX=$PWD/hardware/xiaomi
         GHX="git clone https://github.com/ArrowOS-Devices/android_hardware_xiaomi.git $HX"
@@ -84,6 +90,7 @@ function hx_clone () {
         fi
 }
 
+# Clone Clang
 function clone_clang () {
      read -p "Enter the clang name (1=Proton, 2=Neutron): " cc
         case $cc in
@@ -101,6 +108,7 @@ function clone_clang () {
 }
 echo ""
 
+# Call Functions
 clone_dt
 clone_ct
 clone_kernel

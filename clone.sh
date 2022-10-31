@@ -41,7 +41,10 @@ function clone_kernel () {
                         echo ""
                         echo "Cloning Kawaii kernel . . ."
                         echo ""
-                        git clone https://github.com/Krtonia/kawaii_kernel_sdm845.git --depth=1 $kt ;;
+                        git clone https://github.com/Krtonia/kawaii_kernel_sdm845.git --depth=1 $kt
+                        cd device/xiaomi/beryllium
+                        sed -i "s#TARGET_KERNEL_CONFIG += vendor/xiaomi/silvercore_defconfig#TARGET_KERNEL_CONFIG := beryllium_defconfig# BoardConfig.mk
+                        cd ../../.. ;;
                 * )
                         echo "Invalid option :( "
         esac

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Gh auth
+gh auth login
+
 read -p "Enter Build Type (1=A13, 2=A12.1, 3=Test, 4=Private): " type
 case $type in
                 1 )

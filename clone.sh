@@ -1,12 +1,107 @@
 #!/bin/bash
 
+# Declear Variables
+        dt=$PWD/device/xiaomi/beryllium
+        ct=$PWD/device/xiaomi/sdm845-common
+        vt=$PWD/vendor/xiaomi
+        HX=$PWD/hardware/xiaomi
+        kt=$PWD/kernel/xiaomi/sdm845
+
+
+# Clone Device Tree
+function clone_dt () {
+        git clone https://github.com/RahulGorai0206/device_xiaomi_beryllium.git -b $branch $dt
+}
+
+# Clone Common Tree
+function clone_ct () {
+        if [[ $del_branch == 1 ]]
+        then
+                git clone https://github.com/RahulGorai0206/device_xiaomi_sdm845-common.git $ct
+        else
+          git clone https://github.com/RahulGorai0206/device_xiaomi_beryllium-common.git -b $branch $ct
+        fi
+}
+
+#Clone Vendor Tree
+function clone_vendor () {
+        git clone https://github.com/RahulGorai0206/vendor_xiaomi.git -b $branch $vt
+        echo ""
+}
+
+# Clone Kernel Tree
+function clone_kernel () {
+        case $KERNEL in
+                1 )
+                        echo ""
+                        echo "cloning Silvercore kernel . . ."
+                        echo ""
+                        git clone https://github.com/xiaomi-sdm678/android_kernel_xiaomi_mojito.git --depth=1 $kt ;;
+                2 )
+                        echo ""
+                        echo "Cloning Kawaii kernel . . ."
+                        echo ""
+                        git clone https://github.com/Krtonia/kawaii_kernel_sdm845.git --depth=1 $kt ;;
+                * )
+                        echo "Invalid option :( "
+        esac
+}
+
+# Clone Hardware/xiaomi
+function hx_clone () {
+        if [ -e $HX ] ; then
+                echo " No need to clone hardware/xiaomi"
+         else
+                git clone https://github.com/ArrowOS-Devices/android_hardware_xiaomi.git $HX
+        fi
+}
+
+# Clone Clang
+function clone_clang () {
+        case $cc in
+                1 )
+                        echo
+                        echo "Cloning proton clang"
+                        git clone https://github.com/kdrag0n/proton-clang --depth=1 prebuilts/clang/host/linux-x86/clang-proton ;;
+                2 )
+                        echo
+                        echo "cloning Neutron clang"
+                        git clone https://gitlab.com/dakkshesh07/neutron-clang.git --depth=1 prebuilts/clang/host/linux-x86/clang-neutron ;;
+                * )
+                        echo "Using default clang" ;;
+        esac
+}
+
+# Change Branch
+function change_branch () {
+                read -p "Enter branch name for common tree : " ch_branch
+                git clone https://github.com/RahulGorai0206/device_xiaomi_beryllium-common.git -b $ch_branch $ct
+                read -p "Enter branch name for device tree : " ch_branch
+                git clone https://github.com/RahulGorai0206/device_xiaomi_beryllium.git -b $ch_branch $dt
+                read -p "Enter branch name for vendor tree : " ch_branch
+                git clone https://github.com/RahulGorai0206/vendor_xiaomi.git -b $ch_branch $vt
+                clone_kernel
+                hx_clone
+                clone_clang
+}
+
+echo ""
+
 # Gh auth
 gh auth login
 
 # Take Inputs
      read -p "Enter Build Type (1=A13, 2=A12.1, 3=Test, 4=Private): " type
-     read -p "Enter kernel name (1=Silvercore, 2=Kawaii : " KERNEL
+     read -p "Enter kernel name (1=Silvercore, 2=Kawaii): " KERNEL
      read -p "Enter the clang name (1=Proton, 2=Neutron): " cc
+     read -p "Want to Change branches? (y/n): " cc
+     
+     
+ if [[ $cc == y ]]
+        then
+               change_branch
+               exit 0
+        fi
      
 case $type in
                 1 )
@@ -32,74 +127,6 @@ case $type in
                         echo "Invalid Input " 
                         exit ;;
 
-# Clone Device Tree
-function clone_dt () {
-        dt=$PWD/device/xiaomi/beryllium
-        git clone https://github.com/RahulGorai0206/device_xiaomi_beryllium.git -b $branch $dt
-}
-
-# Clone Common Tree
-function clone_ct () {
-        ct=$PWD/device/xiaomi/sdm845-common
-        if [[ $del_branch == 1 ]]
-        then
-                git clone https://github.com/RahulGorai0206/device_xiaomi_sdm845-common.git $ct
-        else
-          git clone https://github.com/RahulGorai0206/device_xiaomi_beryllium-common.git -b $branch $ct
-        fi
-}
-
-#Clone Vendor Tree
-function clone_vendor () {
-        vt=$PWD/vendor/xiaomi
-        git clone https://github.com/RahulGorai0206/vendor_xiaomi.git -b $branch $vt
-        echo ""
-}
-
-# Clone Kernel Tree
-function clone_kernel () {
-        case $KERNEL in
-                1 )
-                        echo ""
-                        echo "cloning Silvercore kernel . . ."
-                        echo ""
-                        git clone https://github.com/xiaomi-sdm678/android_kernel_xiaomi_mojito.git --depth=1 kernel/xiaomi/sdm845 ;;
-                2 )
-                        echo ""
-                        echo "Cloning Kawaii kernel . . ."
-                        echo ""
-                        git clone https://github.com/Krtonia/kawaii_kernel_sdm845.git --depth=1 kernel/xiaomi/sdm845 ;;
-                * )
-                        echo "Invalid option :( "
-        esac
-}
-
-# Clone Hardware/xiaomi
-function hx_clone () {
-        HX=$PWD/hardware/xiaomi
-        if [ -e $HX ] ; then
-                echo " No need to clone hardware/xiaomi"
-         else
-                git clone https://github.com/ArrowOS-Devices/android_hardware_xiaomi.git $HX
-        fi
-}
-
-# Clone Clang
-function clone_clang () {
-        case $cc in
-                1 )
-                        echo
-                        echo "Cloning proton clang"
-                        git clone https://github.com/kdrag0n/proton-clang --depth=1 prebuilts/clang/host/linux-x86/clang-proton ;;
-                2 )
-                        echo
-                        echo "cloning Neutron clang"
-                        git clone https://gitlab.com/dakkshesh07/neutron-clang.git --depth=1 prebuilts/clang/host/linux-x86/clang-neutron ;;
-                * )
-                        echo "Using default clang" ;;
-        esac
-}
-echo ""
 
 # Call Functions
 clone_dt

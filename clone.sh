@@ -62,11 +62,21 @@ function clone_clang () {
                 1 )
                         echo
                         echo "Cloning proton clang"
-                        git clone https://github.com/kdrag0n/proton-clang --depth=1 prebuilts/clang/host/linux-x86/clang-proton ;;
+                        CCP=$PWD/prebuilts/clang/host/linux-x86/clang-proton
+                        if [ -e $CCP ] ; then
+                                 echo " No need to clone clang"
+                         else
+                                 git clone https://github.com/kdrag0n/proton-clang --depth=1 prebuilts/clang/host/linux-x86/clang-proton
+                        fi ;;
                 2 )
                         echo
                         echo "cloning Neutron clang"
-                        git clone https://gitlab.com/dakkshesh07/neutron-clang.git --depth=1 prebuilts/clang/host/linux-x86/clang-neutron ;;
+                        CCN=$PWD/prebuilts/clang/host/linux-x86/clang-neutron
+                        if [ -e $CCN ] ; then
+                                 echo " No need to clone clang"
+                         else
+                                 git clone https://gitlab.com/dakkshesh07/neutron-clang.git --depth=1 prebuilts/clang/host/linux-x86/clang-neutron
+                        fi ;;
                 * )
                         echo "Using default clang" ;;
         esac
@@ -94,10 +104,10 @@ gh auth login
      read -p "Enter Build Type (1=A13, 2=A12.1, 3=Test, 4=Private): " type
      read -p "Enter kernel name (1=Silvercore, 2=Kawaii): " KERNEL
      read -p "Enter the clang name (1=Proton, 2=Neutron): " cc
-     read -p "Want to Change branches? (y/n): " cc
+     read -p "Want to Change branches? (y/n): " cb
      
      
- if [[ $cc == y ]]
+ if [[ $cb == y ]]
         then
                change_branch
                exit 0

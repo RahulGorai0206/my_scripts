@@ -36,18 +36,18 @@ function clone_kernel () {
                         echo ""
                         echo "cloning Silvercore kernel . . ."
                         echo ""
-                        git clone https://github.com/xiaomi-sdm678/android_kernel_xiaomi_mojito.git --depth=1 $kt ;;
+                        git clone  https://github.com/PainKiller3/kernel_xiaomi_sdm845.git -b thirteen --depth=1 $kt ;;
                 2 )
                         echo ""
                         echo "Cloning Kawaii kernel . . ."
                         echo ""
                         git clone https://github.com/Krtonia/kawaii_kernel_sdm845.git --depth=1 $kt
                         cd device/xiaomi/beryllium
-                        sed -i "s#TARGET_KERNEL_CONFIG += vendor/xiaomi/silvercore_defconfig#TARGET_KERNEL_CONFIG := beryllium_defconfig# BoardConfig.mk
+                        sed -i "s*TARGET_KERNEL_CONFIG += vendor/xiaomi/silvercore_defconfig*TARGET_KERNEL_CONFIG := beryllium_defconfig*" BoardConfig.mk
                         cd ../../.. ;;
                 * )
-                        echo "Invalid option :( "
-        esac
+                        echo "Invalid option :( " ;;
+                        esac
 }
 
 # Clone Hardware/xiaomi
@@ -82,7 +82,7 @@ function clone_clang () {
                         fi ;;
                 * )
                         echo "Using default clang" ;;
-        esac
+                        esac
 }
 
 # Change Branch
@@ -121,24 +121,25 @@ case $type in
                         echo
                         echo "Cloning A13 Resources ......."
                         branch= "thirteen"
-                        del_branch=0
+                        del_branch=0 ;;
                 2 )
                         echo
                         echo "Cloning A12.1 Resources ......."
                         branch="twelve.one"
-                        del_branch=0
+                        del_branch=0 ;;
                 3 )
                         echo
                         echo "Cloning Testing Resources ......."
                         branch="test"
-                        del_branch=0
+                        del_branch=0 ;;
                 4 )
                         echo "Cloning Private Resources ......."
                         branch="thirteen"
-                        del_branch=1
+                        del_branch=1 ;;
                 * )
                         echo "Invalid Input " 
                         exit ;;
+                        esac
 
 
 # Call Functions

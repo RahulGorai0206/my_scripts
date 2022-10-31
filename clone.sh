@@ -3,8 +3,11 @@
 # Gh auth
 gh auth login
 
-# Select type
-read -p "Enter Build Type (1=A13, 2=A12.1, 3=Test, 4=Private): " type
+# Take Inputs
+     read -p "Enter Build Type (1=A13, 2=A12.1, 3=Test, 4=Private): " type
+     read -p "Enter kernel name (1=Silvercore, 2=Kawaii : " KERNEL
+     read -p "Enter the clang name (1=Proton, 2=Neutron): " cc
+     
 case $type in
                 1 )
                         echo
@@ -55,7 +58,6 @@ function clone_vendor () {
 
 # Clone Kernel Tree
 function clone_kernel () {
-     read -p "Enter kernel name (1=Silvercore, 2=Kawaii : " KERNEL
         case $KERNEL in
                 1 )
                         echo ""
@@ -84,7 +86,6 @@ function hx_clone () {
 
 # Clone Clang
 function clone_clang () {
-     read -p "Enter the clang name (1=Proton, 2=Neutron): " cc
         case $cc in
                 1 )
                         echo

@@ -7,6 +7,17 @@
         HX=$PWD/hardware/xiaomi
         kt=$PWD/kernel/xiaomi/sdm845
 
+# Clone HALs
+function clone_hals (){
+	rm -rf hardware/qcom-caf/sdm845/display
+	git clone https://github.com/ArrowOS/android_hardware_qcom_display -b arrow-12.1-caf-sdm845 hardware/qcom-caf/sdm845/display
+	rm -rf hardware/qcom-caf/sdm845/audio
+	git clone https://github.com/ArrowOS/android_hardware_qcom_audio -b arrow-12.1-caf-sdm845 hardware/qcom-caf/sdm845/audio
+	rm -rf hardware/qcom-caf/sdm845/media
+	git clone https://github.com/ArrowOS/android_hardware_qcom_media -b arrow-12.1-caf-sdm845 hardware/qcom-caf/sdm845/media
+	rm -rf external/tinyxml
+	git clone https://github.com/ArrowOS/android_external_tinyxml -b arrow-13.0 external/tinyxml
+}
 
 # Clone Device Tree
 function clone_dt () {
@@ -149,3 +160,4 @@ clone_kernel
 clone_vendor
 hx_clone
 clone_clang
+clone_hals

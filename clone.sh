@@ -108,14 +108,14 @@ gh auth login
      read -p "Enter kernel name (1=Silvercore, 2=Kawaii): " KERNEL
      read -p "Enter the clang name (1=Proton, 2=Neutron): " cc
      read -p "Want to Change branches? (y/n): " cb
-     
-     
+
+
  if [[ $cb == y ]]
         then
                change_branch
                exit 0
         fi
-     
+
 case $type in
                 1 )
                         echo
@@ -137,7 +137,7 @@ case $type in
                         branch="thirteen"
                         del_branch=1 ;;
                 * )
-                        echo "Invalid Input " 
+                        echo "Invalid Input "
                         exit ;;
                         esac
 
@@ -149,5 +149,3 @@ clone_kernel
 clone_vendor
 hx_clone
 clone_clang
-
-exit 0

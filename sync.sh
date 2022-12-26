@@ -25,5 +25,13 @@ case $rom in
                         esac
 
 
-repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
-. clone.sh
+     repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+# Take Inputs
+     read -p "Want to resync?  (Y/N): " sync
+     
+ if [[ $sync == Y ]]
+        then
+               repo sync
+               exit 0
+        fi
+     . clone.sh

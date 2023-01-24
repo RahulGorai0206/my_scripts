@@ -11,6 +11,7 @@
 # Clone Device Tree
 function clone_dt () {
         git clone https://github.com/RahulGorai0206/device_xiaomi_beryllium.git -b $branch $dt
+	rm -rf device/xiaomi/beryllium/vendorsetup.sh
 }
 
 # Clone Common Tree

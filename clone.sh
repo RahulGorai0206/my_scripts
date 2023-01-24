@@ -41,7 +41,7 @@ function clone_kernel () {
                         echo ""
                         echo "Cloning Kawaii kernel . . ."
                         echo ""
-                        git clone https://github.com/Krtonia/kawaii_kernel_sdm845.git --depth=1 $kt ;;
+                        git clone https://github.com/Krtonia/kawaii_kernel_sdm845.git -b 13 --depth=1 $kt ;;
                 * )
                         echo "Invalid option :( " ;;
                         esac

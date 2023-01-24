@@ -11,7 +11,6 @@
 # Clone Device Tree
 function clone_dt () {
         git clone https://github.com/RahulGorai0206/device_xiaomi_beryllium.git -b $branch $dt
-	rm -rf device/xiaomi/beryllium/vendorsetup.sh
 }
 
 # Clone Common Tree
@@ -42,10 +41,7 @@ function clone_kernel () {
                         echo ""
                         echo "Cloning Kawaii kernel . . ."
                         echo ""
-                        git clone https://github.com/Krtonia/kawaii_kernel_sdm845.git --depth=1 $kt
-                        cd device/xiaomi/beryllium
-                        sed -i "s*TARGET_KERNEL_CONFIG += vendor/xiaomi/silvercore_defconfig*TARGET_KERNEL_CONFIG := beryllium_defconfig*" BoardConfig.mk
-                        cd ../../.. ;;
+                        git clone https://github.com/Krtonia/kawaii_kernel_sdm845.git --depth=1 $kt ;;
                 * )
                         echo "Invalid option :( " ;;
                         esac
@@ -86,6 +82,16 @@ function clone_clang () {
                         esac
 }
 
+# Final Fixes
+function finish_D () {
+			# Changing deconfig
+                        cd device/xiaomi/beryllium
+                        sed -i "s*TARGET_KERNEL_CONFIG += vendor/xiaomi/silvercore_defconfig*TARGET_KERNEL_CONFIG := beryllium_defconfig*" BoardConfig.mk
+                        cd ../../..
+
+			# Remove vendorsetup
+			rm -rf device/xiaomi/beryllium/vendorsetup.sh
+}
 # Change Branch
 function change_branch () {
                 read -p "Enter branch name for common tree : " ch_branch
@@ -150,3 +156,4 @@ clone_kernel
 clone_vendor
 hx_clone
 clone_clang
+finish_D

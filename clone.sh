@@ -91,6 +91,9 @@ function finish_D () {
 
 			# Remove vendorsetup
 			rm -rf device/xiaomi/beryllium/vendorsetup.sh
+
+			# Clone Micam
+			git clone https://gitlab.com/RahulGorai0206/packages_apps_memecam.git packages/apps/memecam
 }
 # Change Branch
 function change_branch () {

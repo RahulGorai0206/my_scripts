@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Take Inputs
-     read -p "Select One ( 1=PPUI, 2=CHERISH, 3=EVO ): " rom
+     read -p "Select One ( 1=PPUI, 2=CHERISH, 3=EVO, 4=ELIXIR ): " rom
 
 case $rom in
                 1 )
@@ -19,6 +19,11 @@ case $rom in
                         cp clone.sh ../rahul/evo
                         cd ../rahul/evo
                         repo init -u https://github.com/Evolution-X/manifest -b tiramisu --depth=1 ;;
+                4 )
+                   	mkdir -p ../rahul/eli
+                        cp clone.sh ../rahul/eli
+                        cd ../rahul/eli
+                        repo init -u  https://github.com/Project-Elixir/manifest -b Tiramisu --depth=1 ;;
                 * )
                         echo "Invalid Input "
                         exit ;;
